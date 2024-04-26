@@ -16,6 +16,7 @@ object Main {
       .config(sparkConf)
       .getOrCreate()
     // Define schema for the supermarket sales data
+
     val superSchema = "InvoiceID String, BranchId Int, Customer_type String, Gender String,Product_line String, Unit_price Float, Quantity Integer, Tax_5_percent Float,  Total Float, Date1 String, Time1 String, Payment String, cogs Float,gross_margin_per Float, gross_income Float, Rating Float"
     val superdf = spark.read
       .option("header", true)
@@ -44,8 +45,8 @@ object Main {
   val branchdf_cleaned = branchdf.withColumn("City_Name", initcap(col("City_Name")))
     branchdf_cleaned.show()
 
-    decimalDF.coalesce(1).write.option("header", "true").mode("overwrite").csv(args(1))
-    branchdf_cleaned.coalesce(1).write.option("header", "true").csv(args(3))
+    decimalDF.coalesce(1).write.option("header", true).mode("overwrite").csv(args(1))
+    branchdf_cleaned.coalesce(1).write.option("header", true).csv(args(3))
  // branchdf_cleaned.show()
 /*
   //define schema for product Table
