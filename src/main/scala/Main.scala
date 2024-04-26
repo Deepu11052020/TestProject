@@ -31,23 +31,24 @@ object Main {
     val decimalDF = convertedDF.withColumn("Tax_5_percent", format_number(col("Tax_5_percent").cast("Decimal(10,2)"), 2))
       .withColumn("Total", format_number(col("Total").cast("Decimal(10,2)"), 2))
 
-    decimalDF.coalesce(1).write.option("header", "true").csv(args(1))
-    //val Superdf_cleaned = convertedDF.withColumn("Date1", to_date(col("Date1"), "dd/MM/yyyy"))
-    // println("Total number of rows in Sales DataFrame after Cleaning: " + Superdf_cleaned.count())
-    //decimalDF.show(100, false)
+    //decimalDF.coalesce(1).write.option("header", "true").csv(args(1))
 
-    /*
 
   val branchSchema = "BranchCity_Id Int, Branch_Name String, City_Name String, Start_Date String, End_Date String"
   val branchdf= spark.read
     .option("header", true)
     .schema(branchSchema)
-    .csv("C:\\Users\\deepu\\Documents\\Project_SuperMarket\\BranchCity.csv")
+    .csv(args(2))
+   // .csv("C:\\Users\\deepu\\Documents\\Project_SuperMarket\\BranchCity.csv")
+
   val branchdf_cleaned = branchdf.withColumn("Start_Date", to_date(col("Start_Date"), "dd/MM/yyyy"))
     .withColumn("End_Date", to_date(col("End_Date"), "dd/MM/yyyy"))
     .withColumn("City_Name", initcap(col("City_Name")))
- // branchdf_cleaned.show()
 
+    decimalDF.coalesce(1).write.option("header", "true").mode("overwrite").csv(args(1))
+    branchdf_cleaned.coalesce(1).write.option("header", "true").csv(args(3))
+ // branchdf_cleaned.show()
+/*
   //define schema for product Table
   val productLine = "ProductLine_Id Int,ProductLine_Desc String,Start_Date String,End_Date String"
   var producthdf= spark.read
