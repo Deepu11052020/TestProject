@@ -34,16 +34,15 @@ object Main {
     //decimalDF.coalesce(1).write.option("header", "true").csv(args(1))
 
 
-  val branchSchema = "BranchCity_Id Int, Branch_Name String, City_Name String, Start_Date String, End_Date String"
+  val branchSchema = "BranchId Int, Branch_Name String, City_Name String, Start_Date String, End_Date String"
   val branchdf= spark.read
     .option("header", true)
     .schema(branchSchema)
     .csv(args(2))
    // .csv("C:\\Users\\deepu\\Documents\\Project_SuperMarket\\BranchCity.csv")
 
-  val branchdf_cleaned = branchdf.withColumn("Start_Date", to_date(col("Start_Date"), "dd/MM/yyyy"))
-    .withColumn("End_Date", to_date(col("End_Date"), "dd/MM/yyyy"))
-    .withColumn("City_Name", initcap(col("City_Name")))
+  val branchdf_cleaned = branchdf.withColumn("City_Name", initcap(col("City_Name")))
+    branchdf_cleaned.show()
 
     decimalDF.coalesce(1).write.option("header", "true").mode("overwrite").csv(args(1))
     branchdf_cleaned.coalesce(1).write.option("header", "true").csv(args(3))
