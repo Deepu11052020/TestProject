@@ -51,7 +51,7 @@ object Main {
     superMarketdf_cleaned.show(100, false)
     branchdf_cleaned.show()
     productdf_cleaned.show()
-
+    Class.forName("com.mysql.jdbc.Driver")
     //Mysql
     val url = "jdbc:mysql://localhost:3306/testdb"
     val username = "root"
