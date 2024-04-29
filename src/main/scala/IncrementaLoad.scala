@@ -29,6 +29,7 @@ object IncrementaLoad {
       val convertedDF = superdfFilled.withColumn("Gender", when(col("Gender") === "F", "Female").otherwise("Male"))
       val superMarketdf_cleaned = convertedDF.withColumn("Tax_5_percent", format_number(col("Tax_5_percent").cast("Decimal(10,2)"), 2))
         .withColumn("Total", format_number(col("Total").cast("Decimal(10,2)"), 2))
+      /*
       //define schema for Branch
       val branchSchema = "BranchId Int, Branch_Name String, City_Name String, Start_Date String, End_Date String"
       val branchdf= spark.read
@@ -37,7 +38,7 @@ object IncrementaLoad {
         .csv(args(2))
       // .csv("C:\\Users\\deepu\\Documents\\Project_SuperMarket\\BranchCity.csv")
       val branchdf_cleaned = branchdf.withColumn("City_Name", initcap(col("City_Name")))
-    /*  //define schema for product Table
+    //define schema for product Table
       val productLine = "ProductLine_Id Int,ProductLine_Desc String,Start_Date String,End_Date String"
       var producthdf= spark.read
         .option("header", true)
@@ -49,12 +50,12 @@ object IncrementaLoad {
       val productdf_cleaned = formattedproducthdf.withColumn("ProductLine_Desc", initcap(col("ProductLine_Desc")))
 */
       superMarketdf_cleaned.show(100, false)
-      branchdf_cleaned.show()
+      //branchdf_cleaned.show()
       //productdf_cleaned.show()
 
       superMarketdf_cleaned.coalesce(1).write.option("header", true).mode("append").csv(args(1))
-      branchdf_cleaned.coalesce(1).write.option("header", true).mode("append").csv(args(3))
-     // productdf_cleaned.coalesce(1).write.option("header", true).mode("overwrite").csv(args(5))
+      //branchdf_cleaned.coalesce(1).write.option("header", true).mode("append").csv(args(3))
+      //productdf_cleaned.coalesce(1).write.option("header", true).mode("overwrite").csv(args(5))
       /*
       //Hive
       decimalDF.write.mode("overwrite").saveAsTable("ukusmar.accounts_table")
