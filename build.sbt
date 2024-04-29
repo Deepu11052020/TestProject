@@ -13,8 +13,8 @@ libraryDependencies += "org.apache.spark" %% "spark-core" % "2.4.7"
 // https://mvnrepository.com/artifact/org.apache.spark/spark-sql
 libraryDependencies += "org.apache.spark" %% "spark-sql" % "2.4.7"
 
-libraryDependencies += "mysql" % "mysql-connector-java" % "8.0.28"
-
+//Postgress SQL
+libraryDependencies += "org.postgresql" % "postgresql" % "42.2.23"
 
 
 
