@@ -51,6 +51,23 @@ object Main {
     superMarketdf_cleaned.show(100, false)
     branchdf_cleaned.show()
     productdf_cleaned.show()
+    /*
+    //Mysql
+    val url = "jdbc:mysql://localhost:3306/testdb"
+    val username = "root"
+    val password = "Kittians@01"
+    val connectionProperties = new Properties()
+    connectionProperties.put("user", username)
+    connectionProperties.put("password", password)
+    val superMarket = "superMarket"
+    val branch ="branch"
+    val ProductLine ="ProductLine"
+    superMarketdf_cleaned.write.mode("overwrite").jdbc(url, superMarket, connectionProperties)
+    branchdf_cleaned.write.mode("overwrite").jdbc(url,branch,connectionProperties)
+    productdf_cleaned.write.mode("overwrite").jdbc(url, ProductLine, connectionProperties)
+    */
+
+    /*
     //SQL
     superMarketdf_cleaned.write.format("jdbc").option("url","jdbc:postgresql://ec2-3-9-191-104.eu-west-2.compute.amazonaws.com:5432/testdb")
       .option("dbtable","superMarket").option("driver","org.postgresql.Driver").option("user", "consultants")
@@ -61,12 +78,16 @@ object Main {
     productdf_cleaned.write.format("jdbc").option("url","jdbc:postgresql://ec2-3-9-191-104.eu-west-2.compute.amazonaws.com:5432/testdb")
       .option("dbtable","productLine").option("driver","org.postgresql.Driver").option("user", "consultants")
       .option("password", "WelcomeItc@2022").save()
-
+*/
+    //   transaction_cleaned_df.write.format("jdbc").option("url", "jdbc:postgresql://ec2-3-9-191-104.eu-west-2.compute.amazonaws.com:5432/testdb")
+    //      .option("dbtable", "transactionstable").option("driver", "org.postgresql.Driver").option("user", "consultants")
+    //      .option("password", "WelcomeItc@2022").mode("overwrite").save()
 
     //HDFS
     superMarketdf_cleaned.coalesce(1).write.option("header", true).mode("overwrite").csv(args(1))
     branchdf_cleaned.coalesce(1).write.option("header", true).mode("overwrite").csv(args(3))
     productdf_cleaned.coalesce(1).write.option("header", true).mode("overwrite").csv(args(5))
+    println("superMarket,branch and ProductLine table in HDFS")
 
     //Hive
     superMarketdf_cleaned.write.option("header", "true").saveAsTable("ukusmar.superMarket")
