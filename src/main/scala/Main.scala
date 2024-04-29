@@ -51,7 +51,11 @@ object Main {
     superMarketdf_cleaned.show(100, false)
     branchdf_cleaned.show()
     productdf_cleaned.show()
-
+    //HDFS
+    superMarketdf_cleaned.coalesce(1).write.option("header", true).mode("overwrite").csv(args(1))
+    branchdf_cleaned.coalesce(1).write.option("header", true).mode("overwrite").csv(args(3))
+    productdf_cleaned.coalesce(1).write.option("header", true).mode("overwrite").csv(args(5))
+    println("superMarket,branch and ProductLine table in HDFS")
 
 /*
    // Class.forName("com.mysql.jdbc.Driver")
@@ -71,7 +75,7 @@ object Main {
     productdf_cleaned.write.jdbc(url, ProductLine, connectionProperties)
 */
 
-
+/*
     //SQL
     superMarketdf_cleaned.write.format("jdbc").option("url","jdbc:postgresql://ec2-3-9-191-104.eu-west-2.compute.amazonaws.com:5432/testdb")
       .option("dbtable","superMarket").option("driver","org.postgresql.Driver").option("user", "consultants")
@@ -86,12 +90,9 @@ object Main {
     //   transaction_cleaned_df.write.format("jdbc").option("url", "jdbc:postgresql://ec2-3-9-191-104.eu-west-2.compute.amazonaws.com:5432/testdb")
     //      .option("dbtable", "transactionstable").option("driver", "org.postgresql.Driver").option("user", "consultants")
     //      .option("password", "WelcomeItc@2022").mode("overwrite").save()
-
+*/
     //HDFS
-    superMarketdf_cleaned.coalesce(1).write.option("header", true).mode("overwrite").csv(args(1))
-    branchdf_cleaned.coalesce(1).write.option("header", true).mode("overwrite").csv(args(3))
-    productdf_cleaned.coalesce(1).write.option("header", true).mode("overwrite").csv(args(5))
-    println("superMarket,branch and ProductLine table in HDFS")
+
  }
  }
 
