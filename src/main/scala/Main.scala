@@ -55,11 +55,24 @@ object Main {
     superMarketdf_cleaned.coalesce(1).write.option("header", true).mode("overwrite").csv(args(1))
     branchdf_cleaned.coalesce(1).write.option("header", true).mode("overwrite").csv(args(3))
     productdf_cleaned.coalesce(1).write.option("header", true).mode("overwrite").csv(args(5))
-    println("superMarket,branch and ProductLine table in HDFS")
-
+    println("superMarket,branch and ProductLine tables are in HDFS")
+//Hive
+    superMarketdf_cleaned.write.mode("overwrite").saveAsTable("ukusmar.superMarket")
+    branchdf_cleaned.write.saveAsTable("ukusmar.Branch1")
+    productdf_cleaned.write.saveAsTable("ukusmar.ProduckLine1")
+    println("superMarket,branch and ProductLine tables are in Hive")
 /*
    // Class.forName("com.mysql.jdbc.Driver")
-
+/*
+  Accounts_cleaned_df.write.mode("overwrite").option("header", "true").saveAsTable("ukusmar.accountstable")
+    println("after acocunt_table in hive")
+    customers_cleaned_df.write.mode("overwrite").option("header", "true").saveAsTable("ukusmar.customerstable")
+    println("after customers_table in hive")
+    transaction_cleaned_df.write.mode("overwrite").option("header", "true").saveAsTable("ukusmar.transactionstable")
+    println("after transaction_table in hive ")
+*/
+ */
+ /*
     //Mysql
     val url = "jdbc:mysql://localhost:3306/testdb"
     val username = "root"
